@@ -1,46 +1,80 @@
-const parTicket = 550;
+document.getElementById("scrollButton").addEventListener("click", function () {
+  // Get the target element
+  var targetElement = document.getElementById("targetElement");
 
-const seatButton = document.getElementsByClassName("seat");
+  // Scroll to the target element
+  targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+});
 
-let count = 0;
 
-for (const btn of seatButton) {
-  btn.addEventListener("click", function (event) {
-    count = count + 1;
+//get the buttons
+let count=0;
+let totalPrice=0;
+const btns = document.getElementsByClassName("btn");
+for(const button of btns){
+    button.addEventListener("click", function(e){
+        count++;
+        if (count>=5){
+            alert("You can not purchase more than four tickets!");
+            const btn3=document.getElementsByClassName("btn").innerHtml;
+            btn3.disabled=true;
+            }
+        const count1=document.getElementById("ticketCount").innerText=count;
+        const count2=document.getElementById("remainTicket").innerText=20-count; 
+       
+      
+e.target.style.backgroundColor="#1DD100";
 
-    const seatButtonText = event.target.innerText;
+//publish ticket name
+const container =document.createElement("div")
+const tName=document.getElementById("ticketNaming");
+const ticketName=e.target.innerText;
+const p=document.createElement("p");
+const p1=document.createElement("p");
+const p2=document.createElement("p");
+p.innerText=ticketName;
+p1.innerText="second";
+p2.innerText="550TK";
+container.appendChild(p);
+container.appendChild(p1);
+container.appendChild(p2);
+tName.appendChild(container);
+container.classList.add("flex","flex-row","justify-between");
 
-    const ticketAndPrice =
-      document.getElementById("count-price-ticket").childNodes[1];
 
-    const createPTag = document.createElement("p");
-    createPTag.innerText = seatButtonText;
-    ticketAndPrice.appendChild(createPTag);
 
-    const ticketPrice =
-      document.getElementById("count-price-ticket").childNodes[3];
-    const createPTag2 = document.createElement("p");
-    createPTag2.innerText = "Economy";
-    ticketPrice.appendChild(createPTag2);
+//total price 
+totalPrice=550+totalPrice;
+const totalPrice1=document.getElementById("totalPrice").innerText=totalPrice;
 
-    const ticketPrice1 =
-      document.getElementById("count-price-ticket").childNodes[5];
-    const createPTag3 = document.createElement("p");
-    createPTag3.innerText = parTicket;
-    ticketPrice1.appendChild(createPTag3);
 
-    // total price
 
-    const totalPrice = document.getElementById("total-price").innerText;
+  
 
-    const totalPrices = parseInt(totalPrice);
-    document.getElementById("total-price").innerText =
-      totalPrices + parseInt(parTicket);
+    })};
 
-    allIneerTextSet("seat-count", count);
-  });
-}
+ //discount and grand total
+   const discount1=totalPrice*.15;
+   const discount2=totalPrice*.2;
+   const grandTotal=totalPrice-discount1;
+       const btn2=document.getElementById("apply-btn");
+       btn2.addEventListener("click",function(){
+           const cupon1=document.getElementById("input").value;
+           
+           if (cupon1==="Couple 20"){
+            document.getElementById("grand-total").innerText=totalPrice-totalPrice*.20;
+            const hidden=document.getElementById("hidden");
+            hidden.classList.add("hidden");
+        }
 
-function allIneerTextSet(id, value) {
-  document.getElementById(id).innerText = value;
-}
+       else if (cupon1==="NEW15")  {
+        document.getElementById("grand-total").innerText=totalPrice-totalPrice*.15;
+        const hidden=document.getElementById("hidden");
+        hidden.classList.add("hidden");
+       } 
+       else {
+        document.getElementById("grand-total").innerText=totalPrice;
+       }     
+       }
+       );
+       
